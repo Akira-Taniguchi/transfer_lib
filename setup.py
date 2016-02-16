@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='transfer_lib',
-    version='1.0.0',
+    version='1.0.1',
     description='Transfer Library',
     long_description='https://pypi.python.org/pypi/transfer_lib',
     url='https://github.com/Akira-Taniguchi/transfer_libb',
@@ -17,5 +17,5 @@ setup(
       'Intended Audience :: Developers',
       'License :: OSI Approved :: MIT License'
     ],
-    install_requires=['simplejson==3.8.0', 'unicodecsv==0.9.0']
+    install_requires=['sftp==3.8.0']
 )

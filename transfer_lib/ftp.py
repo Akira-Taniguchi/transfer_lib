@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import sftp
 import stat
-from ftplib import FTP
-from ftplib import FTP_TLS
+from ftplib import FTP, FTP_TLS
 
 
 class FtpLibWrapper(object):
