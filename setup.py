@@ -17,5 +17,5 @@ setup(
       'Intended Audience :: Developers',
       'License :: OSI Approved :: MIT License'
     ],
-    install_requires=['sftp==3.8.0']
+    install_requires=['python_sftp_client==0.2']
 )
