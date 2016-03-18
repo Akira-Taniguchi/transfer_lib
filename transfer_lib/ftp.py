@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import sftp
+import pysftp
 import stat
 from ftplib import FTP, FTP_TLS
 
@@ -68,17 +68,20 @@ class FtpLibWrapper(object):
 
 class SftpLibWrapper(object):
     def __init__(self, host, user, password=None, port=22, private_key=None):
-        self.__sftp = sftp.Connection(host=host, port=port, password=password, username=user, private_key=private_key)
+        self.__sftp = pysftp.Connection(host, username=user, port=port, password=password, private_key=private_key)
 
     def chg_dir(self, path):
         self.__sftp.chdir(path)
+
+    def get_list(self):
+        return self.__sftp.listdir()
 
     def make_dir(self, dir_name):
         file_name_list = self.get_list()
         for file_name in file_name_list:
             if file_name != dir_name:
                 continue
-            if self.__is_dir(file_name):
+            if self.__sftp.isdir(file_name):
                 return
             else:
                 raise Exception('same name file exists'.format(dir_name))
@@ -96,13 +99,10 @@ class SftpLibWrapper(object):
     def upload_file(self, server_file_name, local_file_name):
         self.__sftp.put(local_file_name, server_file_name)
 
-    def get_list(self):
-        return self.__sftp.listdir()
-
     def get_file_list(self):
         file_list = []
         for file_name in self.get_list():
-            if self.__is_dir(file_name):
+            if self.__sftp.isdir(file_name):
                 continue
             file_list.append(file_name)
         return file_list
@@ -110,11 +110,10 @@ class SftpLibWrapper(object):
     def delete_file(self, server_file_name):
         if server_file_name not in self.get_list():
             raise Exception('{0} is not found'.format(server_file_name))
-        if self.__is_dir(server_file_name):
+        if self.__sftp.isdir(server_file_name):
             self.__sftp.rmdir(server_file_name)
         else:
-            self.__sftp.remove_file(server_file_name)
+            self.__sftp.remove(server_file_name)
 
-    def __is_dir(self, file_name):
-        file_stat = self.__sftp._sftp.stat(file_name)
-        return stat.S_ISDIR(file_stat.st_mode)
+    def get_status(self, server_file_name):
+        return self.__sftp.stat(server_file_name)
