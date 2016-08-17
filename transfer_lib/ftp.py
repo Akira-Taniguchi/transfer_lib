@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import pysftp
-import stat
 from ftplib import FTP, FTP_TLS
 
 
