@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name='transfer_lib',
-    version='1.0.3',
+    version='1.0.4',
     description='Transfer Library',
     long_description='https://pypi.python.org/pypi/transfer_lib',
-    url='https://github.com/Akira-Taniguchi/transfer_libb',
+    url='https://github.com/Akira-Taniguchi/transfer_lib',
     author='AkiraTaniguchi',
     author_email ='dededededaiou2003@yahoo.co.jp',
     packages=find_packages(),
